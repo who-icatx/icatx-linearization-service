@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>edu.stanford.protege</groupId>
-    <artifactId>webprotege-linearization-service</artifactId>
+    <artifactId>icatx-linearization-service</artifactId>
     <version>1.0.51</version>
-    <name>webprotege-linearization-service</name>
+    <name>icatx-linearization-service</name>
     <description>This service reads linearization documents from cloud storage (using MinIO) and, from these, generates WebProtégé linearization.
         Also, it handles querying and event sourcing</description>
     <properties>

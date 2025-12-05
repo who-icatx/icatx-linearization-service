@@ -1,6 +1,6 @@
 spring:
   application:
-    name: webprotege-linearization-service
+    name: icatx-linearization-service
   rabbitmq:
     host: rabbitmq
     port: 5672
@@ -27,9 +27,9 @@ webprotege:
     max-retries: 5                # Mai multe încercări
     retry-delay-ms: 2000          # 2 secunde între retry-uri
   rabbitmq:
-    requestqueue: webprotege-linearization-service-queue
-    responsequeue: webprotege-linearization-service-response-queue
-    eventsqueue: webprotege-linearization-events-queue
+    requestqueue: icatx-linearization-service-queue
+    responsequeue: icatx-linearization-service-response-queue
+    eventsqueue: icatx-linearization-events-queue
     event-subscribe: true
     timeout: 300000  # 5 minute timeout pentru RabbitMQ
   linearization:
