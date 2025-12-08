@@ -1,6 +1,6 @@
 spring:
   application:
-    name: webprotege-linearization-service
+    name: icatx-linearization-service
   rabbitmq:
     host: rabbitmq
     port: 5672
