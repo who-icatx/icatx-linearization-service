@@ -1,6 +1,7 @@
 package edu.stanford.protege.webprotege.linearizationservice.repositories.history;
 
 import com.mongodb.client.model.InsertOneModel;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import edu.stanford.protege.webprotege.common.ChangeRequestId;
 import edu.stanford.protege.webprotege.common.ProjectId;
@@ -122,5 +123,20 @@ public class LinearizationHistoryRepositoryImpl implements LinearizationHistoryR
                     LOGGER.info("Commit revision for entity {} and change request {}", entityIri, changeRequestId.id());
                 }
         );
+    }
+
+    @Override
+    public void deleteEntityHistory(String entityIri, ProjectId projectId) {
+        Query query = new Query();
+        query.addCriteria(
+                Criteria.where(WHOFIC_ENTITY_IRI).is(entityIri)
+                        .and(PROJECT_ID).is(projectId.value())
+        );
+
+        readWriteLock.executeWriteLock(() -> {
+            DeleteResult result = mongoTemplate.remove(query, EntityLinearizationHistory.class, LINEARIZATION_HISTORY_COLLECTION);
+            LOGGER.info("Deleted entity history for entity {} in project {} (deletedCount={})",
+                    entityIri, projectId.value(), result.getDeletedCount());
+        });
     }
 }

@@ -23,4 +23,9 @@ public interface LinearizationHistoryRepository {
     Optional<EntityLinearizationHistory> getEntityHistory(String entityIri, ProjectId projectId);
 
     void commitRevision(ChangeRequestId changeRequestId, ProjectId projectId, String entityIri);
+
+    /**
+     * Deletes the history entry for a given entity IRI within a project.
+     */
+    void deleteEntityHistory(String entityIri, ProjectId projectId);
 }
