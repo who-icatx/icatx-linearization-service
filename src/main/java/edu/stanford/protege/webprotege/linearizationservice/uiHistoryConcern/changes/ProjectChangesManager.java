@@ -68,6 +68,7 @@ public class ProjectChangesManager {
                             ProjectChange projectChange = getProjectChangesForRevision(
                                     revisionWithEntity.getRevision(),
                                     entityIrisAndNames.get(revisionWithEntity.getWhoficEntityIri()),
+                                    revisionWithEntity.getWhoficEntityIri(),
                                     renderedEntitiesList,
                                     linearizationDefinitions,
                                     ""
@@ -100,6 +101,7 @@ public class ProjectChangesManager {
         ProjectChange projectChange = getProjectChangesForRevision(
                 linearizationRevision,
                 entityIrisAndNames.get(whoficEntityIri),
+                whoficEntityIri,
                 renderedEntitiesList,
                 linearizationDefinitions,
                 commitMessage
@@ -115,6 +117,7 @@ public class ProjectChangesManager {
 
     private ProjectChange getProjectChangesForRevision(LinearizationRevision revision,
                                                        String subjectName,
+                                                       String subjectIri,
                                                        List<EntityNode> renderedEntities,
                                                        List<LinearizationDefinition> linearizationDefinitions, String commitMessage) {
         final int totalChanges;
@@ -139,12 +142,22 @@ public class ProjectChangesManager {
                 renderedDiffElements,
                 totalChanges
         );
+
+
         var message = commitMessage != null ? commitMessage : "";
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<div style=\"cursor : pointer;\" onclick=\"window.focusClickedEntity && window.focusClickedEntity(event, '")
+                .append(subjectIri)
+                .append("')\">");
+        sb.append("Edited Linearization for Entity: ").append(subjectName).append(" : ").append(message);
+        sb.append("</div>");
+
         ProjectChange projectChange = ProjectChange.get(
                 RevisionNumber.valueOf("0"),
                 revision.userId(),
                 revision.timestamp(),
-                "Edited Linearization for Entity: " + subjectName + " : " + message,
+                sb.toString(),
                 totalChanges,
                 page);
         return projectChange;
