@@ -149,7 +149,9 @@ public class ProjectChangesManager {
         StringBuilder sb = new StringBuilder();
         sb.append("<div style=\"cursor : pointer;\" onclick=\"window.focusClickedEntity && window.focusClickedEntity(event, '")
                 .append(subjectIri)
-                .append("')\">");
+                .append("')\" title=\"Click to select entity ")
+                .append(subjectIri)
+                .append("\">");
         sb.append("Edited Linearization for Entity: ").append(subjectName).append(" : ").append(message);
         sb.append("</div>");
 
